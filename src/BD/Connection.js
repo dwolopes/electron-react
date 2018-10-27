@@ -15,13 +15,18 @@ connection.connect((err) => {
   console.log(`connected as id ${connection.threadId}`);
 });
 
-const consultaQuite = (inscricao) => {
-  let query;
-  connection.query(`SELECT * FROM cds_quites WHERE insc=${inscricao}`, (error, results, fields) => {
-    if (error) throw error;
-    console.log(results)
+const consultaQuite = (inscricao, callback) => {
+  console.log(inscricao)
+    connection.query(`SELECT * FROM cds_quites WHERE insc=${inscricao}`, (error, results, fields) => {
+    if (error) {
+      callback(error, null)
+    } else {
+      let dataResult = JSON.stringify(results)
+      let dataJson = JSON.parse(dataResult)
+      console.log(dataJson)
+      callback(null, dataJson[0]);
+    }
   });
-  return query;
 };
 
 

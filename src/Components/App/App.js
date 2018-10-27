@@ -6,22 +6,24 @@ class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      value: '',
       profissional: ''
     }
-    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getQuite = this.getQuite.bind(this);
   }
 
-  handleChange (value) {
-    this.setState({value})
+  getQuite (error, profissional) {
+    if (error){
+      console.log(error);
+    } else {
+      this.setState({profissional});
+      console.log(this.state)
+    }
   }
 
   handleSubmit (event) {
     event.preventDefault();
-    let results = bd.consultaQuite(this.state.value)
-    console.log(results)
-    console.log(this.state)
+    bd.consultaQuite(document.forms["quiteForm"]["inscricao"].value, this.getQuite);
   }
 
   render () {
@@ -29,7 +31,7 @@ class App extends React.Component {
       <div>
         <h1>Verifique se o Cd está quite :)</h1>
         <h2>{this.state.value}</h2>
-        <Form inscricao={this.state.value} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
+        <Form inscricao={this.state.value} handleSubmit={this.handleSubmit}/>
       </div>)
   }
 }

@@ -7,10 +7,10 @@ class Form extends Component {
 
   render () {
     return (
-      <form onSubmit={(event) => this.props.handleSubmit(event)}>
+      <form name="quiteForm" onSubmit={(event) => this.props.handleSubmit(event)}>
         <label>
               Número de Inscrição:
-          <input maxLength="6" type="text" value={this.props.inscricao} onChange={(event) => this.props.handleChange(event.target.value)} />
+          <input maxLength="6" type="text" name="inscricao"/>
         </label>
         <input type='submit' value='Pesquisar' />
       </form>
